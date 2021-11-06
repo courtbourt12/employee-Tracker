@@ -8,36 +8,36 @@ const runTheProgram = () => {
     prompt([
         {
             type: "list",
-            name: "list",
+            name: "initialList",
             message: "What would you like to do?",
             choices: 
             [
                 {
-                    name: "department",
+                    name: "allDepartments",
                     message: "View all departments."  
                 },
                 {
-                    name: "department",
+                    name: "allRoles",
                     message: "View all roles."  
                 },
                 {
-                    name: "department",
+                    name: "allEmployees",
                     message: "View all employees."  
                 },
                 {
-                    name: "department",
+                    name: "addDepartments",
                     message: "Add a department."  
                 },
                 {
-                    name: "department",
+                    name: "addRolls",
                     message: "Add a role."  
                 },
                 {
-                    name: "department",
+                    name: "addEmployees",
                     message: "Add an employee."  
                 },
                 {
-                    name: "department",
+                    name: "updateEmployees",
                     message: "Update an employee."  
                 }
             ]
@@ -45,3 +45,80 @@ const runTheProgram = () => {
     ])
 };
 
+// Prompt when user chooses to add a department.
+
+const addDepartment = () => {
+    prompt([
+        {
+            type: "list",
+            name: "addingDepartment",
+            message: "What is the name of the department?"
+        }
+    ]);
+};
+
+// When user chooses to add a role.
+
+const addRole = () => {
+    prompt([
+        {
+            type: "list",
+            name: "addingRole",
+            choices: 
+            [
+                {
+                    name: "roleName",
+                    message: "What is the name of the role?"
+                },
+                {
+                    name: "roleSalary",
+                    message: "What is the salary of the role?"
+                },
+                {
+                    name: "roleDepartment",
+                    message: "What department does the role belong to?"
+                }
+            ]
+        }
+    ]);
+};
+
+// When user chooses to add an employee.
+
+const addEmployee = () => {
+    prompt([
+        {
+            type: "list",
+            name: "addingEmployee",
+            choices: 
+            [
+                {
+                    name: "employeeFirstName",
+                    message: "What is the employee's first name?"
+                },
+                {
+                    name: "employeeLastName",
+                    message: "What is the employee's last name?"
+                },
+                {
+                    name: "employeeRole",
+                    message: "What is the employee's role?"
+                },
+                {
+                    name: "employeeManager",
+                    message: "What is the employee's manager?"
+                }
+            ]
+        }
+    ]);
+};
+
+const updateEmployee = () => {
+    prompt([
+        {
+            type: "list",
+            name: "employeeUpdate",
+            message: "Which employee would you like to update?"
+        }
+    ]);
+};
