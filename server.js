@@ -1,11 +1,13 @@
 // Adding the connection to the other javascript page to connect mysql 2.
 
 const connection = require("./connection");
+const inquirer = require("inquirer");
+const db = require("./connection");
 
 // Initial prompt for asking the user what they want to do.
 
 const runTheProgram = () => {
-    prompt([
+    return inquirer.prompt([
         {
             type: "list",
             name: "initialList",
@@ -48,7 +50,7 @@ const runTheProgram = () => {
 // Prompt when user chooses to add a department.
 
 const addDepartment = () => {
-    prompt([
+    inquirer.prompt([
         {
             type: "list",
             name: "addingDepartment",
@@ -60,7 +62,7 @@ const addDepartment = () => {
 // When user chooses to add a role.
 
 const addRole = () => {
-    prompt([
+    inquirer.prompt([
         {
             type: "list",
             name: "addingRole",
@@ -86,7 +88,7 @@ const addRole = () => {
 // When user chooses to add an employee.
 
 const addEmployee = () => {
-    prompt([
+    inquirer.prompt([
         {
             type: "list",
             name: "addingEmployee",
@@ -114,7 +116,7 @@ const addEmployee = () => {
 };
 
 const updateEmployee = () => {
-    prompt([
+    inquirer.prompt([
         {
             type: "list",
             name: "employeeUpdate",
@@ -122,3 +124,31 @@ const updateEmployee = () => {
         }
     ]);
 };
+
+// Function to decide what will happen upon certain answers from the intial questions.
+
+const whatIf = (answers) => {
+    if (answers.initialList === "allDepartments") {
+        const departmentRow = "SELECT id, employee_department AS title FROM employees";
+
+        db.query(departmentRow, (err, rows) => {
+            if (err) {
+                res.status(500).json({error: err.message});
+                return;
+            }
+            res.json({
+                message: "success",
+                data: rows
+            })
+        })
+    }
+}
+
+// Function to run the initial questions.
+
+const beginQuestioning = () => {
+runTheProgram()
+.then((answers) => whatIf(answers))
+}
+
+beginQuestioning();
