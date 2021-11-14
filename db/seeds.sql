@@ -1,5 +1,7 @@
+USE employees;
+
 INSERT INTO employees (employee_department)
-VALUES  ("HR")
-        ("Engineering")
-        ("Accounting")
-        ("Marketing")
+VALUES  ("HR"),
+        ("Engineering"),
+        ("Accounting"),
+        ("Marketing");

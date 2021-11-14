@@ -3,6 +3,16 @@ CREATE DATABASE employees_db;
 
 USE employees_db;
 
+CREATE TABLE departments (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+)
+
+CREATE TABLE roles (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+)
+
 CREATE TABLE employees (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     employee_firstname VARCHAR(50) NOT NULL,
