@@ -1,8 +1,9 @@
 // Adding the connection to the other javascript page to connect mysql 2.
 
-const connection = require("./connection");
+// const connection = require("./connection");
 const inquirer = require("inquirer");
-const db = require("./connection");
+// const db = require("./db");
+// require("console.table");
 
 // Initial prompt for asking the user what they want to do.
 
@@ -16,35 +17,68 @@ const runTheProgram = () => {
             [
                 {
                     name: "allDepartments",
-                    message: "View all departments."  
+                    message: "View all departments.",
+                    value: "VIEW_DEPARTMENTS"
                 },
                 {
                     name: "allRoles",
-                    message: "View all roles."  
+                    // message: "View all roles.",
+                    value: "VIEW_ROLES"  
                 },
                 {
                     name: "allEmployees",
-                    message: "View all employees."  
+                    message: "View all employees.",
+                    value: "VIEW_EMPLOYEES" 
                 },
                 {
                     name: "addDepartments",
-                    message: "Add a department."  
+                    message: "Add a department.",
+                    value: "ADD_DEPARTMENT" 
                 },
                 {
                     name: "addRolls",
-                    message: "Add a role."  
+                    message: "Add a role.",
+                    value: "ADD_ROLE"  
                 },
                 {
                     name: "addEmployees",
-                    message: "Add an employee."  
+                    message: "Add an employee.",
+                    value: "ADD_EMPLOYEE"  
                 },
                 {
                     name: "updateEmployees",
-                    message: "Update an employee."  
+                    message: "Update an employee.",
+                    value: "UPDATE_EMPLOYEE"  
                 }
             ]
         }
     ])
+    .then((res) => {
+        let choice = res.choice;
+
+        switch(choice) {
+            case "VIEW_DEPARTMENTS":
+                viewDepartments();
+                break;
+            case "VIEW_ROLES":
+                viewRoles();
+                break;
+            case "VIEW_EMPLOYEES":
+                viewEmployees();
+                break;
+            case "ADD_DEPARTMENT":
+                addDepartment();
+                break;
+            case "ADD_ROLE":
+                addRole();
+                break;
+            case "ADD_EMPLOYEE":
+                addEmployee();
+                break;
+            case "UPDATE_EMPLOYEE":
+                updateEmployee();
+                break;
+    }})
 };
 
 // Prompt when user chooses to add a department.
@@ -125,30 +159,13 @@ const updateEmployee = () => {
     ]);
 };
 
-// Function to decide what will happen upon certain answers from the intial questions.
 
-const whatIf = (answers) => {
-    if (answers.initialList === "allDepartments") {
-        const departmentRow = "SELECT id, employee_department AS title FROM employees";
-
-        db.query(departmentRow, (err, rows) => {
-            if (err) {
-                res.status(500).json({error: err.message});
-                return;
-            }
-            res.json({
-                message: "success",
-                data: rows
-            })
-        })
-    }
-}
 
 // Function to run the initial questions.
 
 const beginQuestioning = () => {
 runTheProgram()
-.then((answers) => whatIf(answers))
+
 }
 
 beginQuestioning();

@@ -11,7 +11,7 @@ CREATE TABLE departments (
 CREATE TABLE roles (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
-    salary DECIMAL NOT NULL,
+    salary DECIMAL UNSIGNED NOT NULL,
     department_id INT UNSIGNED NOT NULL,
     INDEX dep_ind (department_id),
     CONSTRAINT fk_department FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE CASCADE
