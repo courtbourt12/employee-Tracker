@@ -1,9 +1,7 @@
 // Adding the connection to the other javascript page to connect mysql 2.
 
-// const connection = require("./connection");
 const inquirer = require("inquirer");
-// const db = require("./db");
-// require("console.table");
+
 
 // Initial prompt for asking the user what they want to do.
 
@@ -17,44 +15,37 @@ const runTheProgram = () => {
             [
                 {
                     name: "allDepartments",
-                    message: "View all departments.",
                     value: "VIEW_DEPARTMENTS"
                 },
                 {
                     name: "allRoles",
-                    // message: "View all roles.",
                     value: "VIEW_ROLES"  
                 },
                 {
                     name: "allEmployees",
-                    message: "View all employees.",
                     value: "VIEW_EMPLOYEES" 
                 },
                 {
                     name: "addDepartments",
-                    message: "Add a department.",
                     value: "ADD_DEPARTMENT" 
                 },
                 {
                     name: "addRolls",
-                    message: "Add a role.",
                     value: "ADD_ROLE"  
                 },
                 {
                     name: "addEmployees",
-                    message: "Add an employee.",
                     value: "ADD_EMPLOYEE"  
                 },
                 {
                     name: "updateEmployees",
-                    message: "Update an employee.",
                     value: "UPDATE_EMPLOYEE"  
                 }
             ]
         }
     ])
     .then((res) => {
-        let choice = res.choice;
+        let choice = res.initialList;
 
         switch(choice) {
             case "VIEW_DEPARTMENTS":
