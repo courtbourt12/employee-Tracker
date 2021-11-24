@@ -1,6 +1,7 @@
 // Adding the connection to the other javascript page to connect mysql 2.
 
 const inquirer = require("inquirer");
+const { listenerCount } = require("process");
 const db = require("./db");
 
 
@@ -109,70 +110,90 @@ const viewEmployees = () => {
 const addDepartment = () => {
     inquirer.prompt([
         {
-            type: "list",
+            name: "department_name",
             message: "What is the name of the department?"
         }
     ])
-    .then((answers) => addDepartment(answers));
+    .then((answer) => {
+        db.addADepartment(answer)
+        .then(() => console.log(`${answer.department_name} department was added.`))
+        .then(() => runTheProgram())
+    }
+    );
 };
 
 // When user chooses to add a role.
 
 const addRole = () => {
+    db.findDepartments()
+    .then(([rows]) => {
+      let departments = rows;
+      const departmentChoices = departments.map(({ id, department_name }) => ({
+        name: department_name,
+        value: id
+      }));
     inquirer.prompt([
         {
+            name: "title",
+            message: "What is the name of the role?"
+        },
+        {
+            name: "salary",
+            message: "What is the salary of the role?"
+        },
+        {
             type: "list",
-            name: "addingRole",
-            choices: 
-            [
-                {
-                    name: "roleName",
-                    message: "What is the name of the role?"
-                },
-                {
-                    name: "roleSalary",
-                    message: "What is the salary of the role?"
-                },
-                {
-                    name: "roleDepartment",
-                    message: "What department does the role belong to?"
-                }
-            ]
+            name: "department_id",
+            message: "What department does the role belong to?",
+            choices: departmentChoices
         }
     ])
-    .then((answers) => addRole(answers));
-};
+    .then((answer) => {
+        db.addARole(answer)
+        .then(() => console.log(`${answer.title} role was added.`))
+        .then(() => runTheProgram())
+    }
+    );
+})};
 
 // When user chooses to add an employee.
 
 const addEmployee = () => {
+    db.findRoles()
+    .then(([rows]) => {
+      let roles = rows;
+      const roleChoices = roles.map(({ id, title }) => ({
+        name: title,
+        value: id
+      }));
+
     inquirer.prompt([
         {
+            name: "first_name",
+            message: "What is the employee's first name?"
+        },
+        {
+            name: "last_name",
+            message: "What is the employee's last name?"
+        },
+        {
             type: "list",
-            name: "addingEmployee",
-            choices: 
-            [
-                {
-                    name: "employeeFirstName",
-                    message: "What is the employee's first name?"
-                },
-                {
-                    name: "employeeLastName",
-                    message: "What is the employee's last name?"
-                },
-                {
-                    name: "employeeRole",
-                    message: "What is the employee's role?"
-                },
-                {
-                    name: "employeeManager",
-                    message: "What is the employee's manager?"
-                }
-            ]
+            name: "role_id",
+            message: "What is the employee's role?",
+            choices: roleChoices
+        },
+        {
+            name: "manager_id",
+            message: "What is the employee's manager?"
         }
     ])
-    .then((answers) => addEmployee(answers));
-};
+    .then((answer) => {
+        db.addAnEmployee(answer)
+        .then(() => console.log(`${answer.first_nam} was added.`))
+        .then(() => runTheProgram())
+    }
+    );
+})};
 
 const updateEmployee = () => {
     inquirer.prompt([

@@ -28,18 +28,24 @@ class DB {
         )
     }
 
+    findManagers() {
+        return this.connection.promise().query(
+            "SELECT employees.manager_id FROM employees;"
+        )
+    }
+
     // Adding specific rows.
 
-    addAnEmployee() {
+    addAnEmployee(employee) {
         return this.connection.promise().query("INSERT INTO employees SET ?", employee)
     }
 
-    addARole() {
+    addARole(role) {
         return this.connection.promise().query("INSERT INTO roles SET ?", role)
     }
 
-    addADepartment() {
-        return this.connection.promise().query("INSERT INTO departments SET ?", department)
+    addADepartment(departments) {
+        return this.connection.promise().query("INSERT INTO departments SET ?", departments)
     }
 
     // Updating an employee.
