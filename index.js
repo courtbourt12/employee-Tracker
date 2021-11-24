@@ -1,6 +1,7 @@
 // Adding the connection to the other javascript page to connect mysql 2.
 
 const inquirer = require("inquirer");
+const db = require("./db");
 
 
 // Initial prompt for asking the user what they want to do.
@@ -72,16 +73,47 @@ const runTheProgram = () => {
     }})
 };
 
+// Viewing specific sections of the schema.
+
+const viewDepartments = () => {
+    db.findDepartments()
+    .then(([rows]) => {
+        let departments = rows;
+        console.table(departments);
+    })
+    .then(() => runTheProgram())
+}
+
+const viewRoles = () => {
+    db.findRoles()
+    .then(([rows]) => {
+        let roles = rows;
+        console.table(roles);
+    })
+    .then(() => runTheProgram())
+}
+
+
+const viewEmployees = () => {
+    db.findEmployees()
+    .then(([rows]) => {
+        let employees = rows;
+        console.table(employees);
+    })
+    .then(() => runTheProgram())
+}
+
+
 // Prompt when user chooses to add a department.
 
 const addDepartment = () => {
     inquirer.prompt([
         {
             type: "list",
-            name: "addingDepartment",
             message: "What is the name of the department?"
         }
-    ]);
+    ])
+    .then((answers) => addDepartment(answers));
 };
 
 // When user chooses to add a role.
@@ -107,7 +139,8 @@ const addRole = () => {
                 }
             ]
         }
-    ]);
+    ])
+    .then((answers) => addRole(answers));
 };
 
 // When user chooses to add an employee.
@@ -137,7 +170,8 @@ const addEmployee = () => {
                 }
             ]
         }
-    ]);
+    ])
+    .then((answers) => addEmployee(answers));
 };
 
 const updateEmployee = () => {
@@ -147,7 +181,8 @@ const updateEmployee = () => {
             name: "employeeUpdate",
             message: "Which employee would you like to update?"
         }
-    ]);
+    ])
+    .then((answers) => updateEmployee(answers));
 };
 
 
