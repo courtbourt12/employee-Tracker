@@ -42,6 +42,10 @@ const runTheProgram = () => {
                 {
                     name: "updateEmployees",
                     value: "UPDATE_EMPLOYEE"  
+                },
+                {
+                    name: "quit",
+                    value: "QUIT"
                 }
             ]
         }
@@ -70,6 +74,9 @@ const runTheProgram = () => {
                 break;
             case "UPDATE_EMPLOYEE":
                 updateEmployee();
+                break;
+            case "QUIT":
+                console.log("That was fun :)");
                 break;
     }})
 };
